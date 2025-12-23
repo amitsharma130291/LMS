@@ -1,5 +1,5 @@
 const express = require("express");
-const { registerAdmin } = require("../../controller/staff/adminCtrl")
+const { registerAdmin, adminLogin } = require("../../controller/staff/adminCtrl")
 
 const adminRouter = express.Router();
 
@@ -9,9 +9,7 @@ adminRouter.get("/", (req, res) => {
 
 adminRouter.post("/register", registerAdmin);
 
-adminRouter.get("/login", (req, res) => {
-    res.json({ sucess : true, message: "Login called by admin"})
-})
+adminRouter.post("/login", adminLogin)
 
 module.exports = adminRouter;
 

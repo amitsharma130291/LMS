@@ -14,3 +14,17 @@ exports.registerAdmin = async(req, res) => {
         })
     }
 }
+
+exports.adminLogin = async(req, res) => {
+    const { email, password } = req.body;
+    const user = await Admin.findOne({ email });
+    console.log(user)
+    if(!user){
+        res.status(404).json({ success : false, message: "Invalid login Credentials"})
+    }
+    if(user && await user.verifyPassword(password)){
+        res.status(200).json({ success : true, user})
+    }else{
+        res.json({ success : false, message: "Invalid login Credential"})
+    }
+}

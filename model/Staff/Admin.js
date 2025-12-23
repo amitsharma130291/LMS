@@ -30,5 +30,9 @@ adminSchema.pre("save", async function(){
     this.password = await bcrypt.hash(this.password, salt)
 })
 
+adminSchema.methods.verifyPassword = async function(enteredPassword){
+    return bcrypt.compare(enteredPassword, this.password)
+}
+
 const Admin = mongoose.model("Admin", adminSchema)
 module.exports = Admin;
